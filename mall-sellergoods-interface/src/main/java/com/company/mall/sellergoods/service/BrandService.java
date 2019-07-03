@@ -1,5 +1,6 @@
 package com.company.mall.sellergoods.service;
 
+import com.company.entity.PageResult;
 import com.company.mall.pojo.TbBrand;
 
 import java.util.List;
@@ -16,5 +17,19 @@ public interface BrandService {
      * @return
      */
     List<TbBrand> findAll();
+
+    /**
+     * 返回分页列表
+     * @param pageNum 当前页
+     * @param pageSize 每页的记录数
+     * @return
+     */
+    PageResult findPage(int pageNum, int pageSize);
+
+    /**
+     * 增加品牌
+     * @param brand 品牌对象
+     */
+    void addBrand(TbBrand brand);
 
 }
