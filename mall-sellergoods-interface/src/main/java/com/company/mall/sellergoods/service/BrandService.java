@@ -32,4 +32,31 @@ public interface BrandService {
      */
     void addBrand(TbBrand brand);
 
+    /**
+     * 根据id查询品牌
+     * @param id
+     * @return
+     */
+    TbBrand findBrandById(long id);
+
+    /**
+     * 更新品牌信息
+     * @param brand
+     */
+    void updateBrand(TbBrand brand);
+
+    /**
+     * 根据id删除品牌信息
+     * @param ids
+     */
+    void deleteBrandById(long[] ids);
+
+    /**
+     * 带条件的分页查询
+     * @param brand
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    PageResult findPageByCondition(TbBrand brand, int pageNum, int pageSize);
 }

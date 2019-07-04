@@ -36,16 +36,20 @@
                     <button type="button" class="btn btn-default" title="新建" data-toggle="modal"
                             data-target="#editModal" ng-click="entity={}"><i class="fa fa-file-o"></i> 新建
                     </button>
-                    <button type="button" class="btn btn-default" title="删除"><i class="fa fa-trash-o"></i> 删除</button>
-                    <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i
-                            class="fa fa-refresh"></i> 刷新
+                    <button type="button" class="btn btn-default" title="删除" ng-click="deleteBrand()"><i class="fa fa-trash-o"></i> 删除</button>
+                    <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();">
+                        <i class="fa fa-refresh"></i> 刷新
                     </button>
                 </div>
             </div>
         </div>
         <div class="box-tools pull-right">
             <div class="has-feedback">
-
+                品牌名称:<input ng-model="searchEntity.name">
+                品牌首字母:<input ng-model="searchEntity.firstChar">
+                <button type="button" class="btn btn-default" title="查询" ng-click="reloadList()">
+                    <i class="fa fa-refresh"></i> 查询
+                </button>
             </div>
         </div>
         <!--工具栏/-->
@@ -65,12 +69,12 @@
             </thead>
             <tbody>
             <tr ng-repeat="entity in list">
-                <td><input type="checkbox"></td>
+                <td><input type="checkbox" ng-click="updateSelection($event, entity.id)"></td>
                 <td>{{entity.id}}</td>
                 <td>{{entity.name}}</td>
                 <td>{{entity.firstChar}}</td>
                 <td class="text-center">
-                    <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal">修改
+                    <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" ng-click="findBrandById(entity.id)">修改
                     </button>
                 </td>
             </tr>
@@ -81,7 +85,6 @@
         <tm-pagination conf="paginationConf"></tm-pagination>
     </div>
     <!-- 数据表格 /-->
-
 </div>
 <!-- /.box-body -->
 
@@ -157,12 +160,17 @@
 
         // 重新加载数据
         $scope.reloadList = function () {
-            $scope.findPage($scope.paginationConf.currentPage, $scope.paginationConf.itemsPerPage);
+            $scope.search($scope.paginationConf.currentPage, $scope.paginationConf.itemsPerPage);
         }
         
-        // 新增品牌
+        // 保存品牌信息
         $scope.save = function () {
-            $http.post('../brand/addBrand.do', $scope.entity).success(
+            var methodName = 'addBrand';
+            if($scope.entity.id != null) {
+                // 如果有id，则更新品牌信息
+                methodName = 'updateBrand';
+            }
+            $http.post('../brand/'+  methodName +'.do', $scope.entity).success(
                 function (response) {
                     if(response.success) {
                         // 重新加载列表数据
@@ -173,6 +181,56 @@
                 }
             );
         }
+
+        // 根据id查询品牌实体
+        $scope.findBrandById = function(id) {
+            $http.get('../brand/findBrandById.do?id=' + id).success(
+                function (response) {
+                    $scope.entity = response;
+            });
+        }
+
+        // 定义一个数组用于保存选择的id信息
+        $scope.selectIds = [];
+        // 每次选择都更新数组的信息
+        $scope.updateSelection = function($event, id) {
+            // 如果是被选中，则增加到数组
+            if($event.target.checked) {
+                $scope.selectIds.push(id);
+            } else {
+                var index = $scope.selectIds.indexOf(id);
+                $scope.selectIds.splice(index, 1);
+            }
+        }
+
+        // 删除品牌信息
+        $scope.deleteBrand = function () {
+            if(confirm("确认删除记录吗？")) {
+                $http.get('../brand/deleteBrandById.do?ids=' + $scope.selectIds).success(
+                    function (response) {
+                        if(response.success) {
+                            // 刷新列表数据
+                            $scope.reloadList();
+                        }
+                    }
+                )
+            }
+        }
+
+        // 带条件查询
+        // 每次都初始化searchEntity为空
+        $scope.searchEntity={};
+        $scope.search = function (page, rows) {
+            $http.post('../brand/search.do?page=' + page + '&rows=' + rows, $scope.searchEntity).success(
+                function (response) {
+                    // 显示当前页数
+                    $scope.list = response.rows;
+                    // 更新总记录数
+                    $scope.paginationConf.totalItems = response.total;
+                }
+            )
+        }
+
     });
 </script>
 </html>
