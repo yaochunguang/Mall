@@ -1,5 +1,5 @@
  //控制层 
-app.controller('specificationOptionController' ,function($scope,$controller   ,specificationOptionService){	
+app.controller('specificationOptionController' ,function($scope, $controller, specificationOptionService){
 	
 	$controller('baseController',{$scope:$scope});//继承
 	
