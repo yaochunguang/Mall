@@ -5,6 +5,7 @@ import com.company.mall.pojo.TbBrandExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TbBrandMapper {
     int countByExample(TbBrandExample example);
@@ -28,4 +29,11 @@ public interface TbBrandMapper {
     int updateByPrimaryKeySelective(TbBrand record);
 
     int updateByPrimaryKey(TbBrand record);
+
+    /**
+     * 品牌下拉框数据，格式为id,text
+     * 给模板木块关联品牌信息用
+     * @return
+     */
+    List<Map> selectBrandList();
 }

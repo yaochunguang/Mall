@@ -35,4 +35,8 @@ app.service('brandService', function ($http) {
         return $http.post('../brand/search.do?page=' + page + '&rows=' + rows, searchEntity);
     }
 
+    // 品牌信息下拉框
+    this.selectBrandList = function() {
+        return $http.get('../brand/selectBrandList.do');
+    }
 });

@@ -4,6 +4,7 @@ import com.company.entity.PageResult;
 import com.company.mall.pojo.TbBrand;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @description: 品牌管理接口类
@@ -59,4 +60,11 @@ public interface BrandService {
      * @return
      */
     PageResult findPageByCondition(TbBrand brand, int pageNum, int pageSize);
+
+    /**
+     * 品牌下拉框数据，格式为id,text
+     * 给模板木块关联品牌信息用
+     * @return
+     */
+    List<Map> selectBrandList();
 }

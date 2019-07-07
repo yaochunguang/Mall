@@ -11,6 +11,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @description: 品牌管理类实现
@@ -74,5 +75,10 @@ public class BrandServiceImpl implements BrandService {
         }
         Page<TbBrand> page = (Page<TbBrand>)brandMapper.selectByExample(example);
         return new PageResult(page.getTotal(), page.getResult());
+    }
+
+    @Override
+    public List<Map> selectBrandList() {
+        return brandMapper.selectBrandList();
     }
 }

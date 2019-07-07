@@ -178,4 +178,9 @@
       first_char = #{firstChar,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  
+  <!-- 给模板展示品牌列表用，返回id，text的格式 -->
+  <select id="selectBrandList" resultType="java.util.Map">
+    select id, name as text from tb_brand
+  </select>
 </mapper>
