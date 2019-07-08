@@ -164,4 +164,9 @@
     set spec_name = #{specName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <!-- 给模板展示品牌列表用，返回id，text的格式 -->
+  <select id="selectSpecificationdList" resultType="java.util.Map">
+    select id, spec_name as text from tb_specification
+  </select>
 </mapper>

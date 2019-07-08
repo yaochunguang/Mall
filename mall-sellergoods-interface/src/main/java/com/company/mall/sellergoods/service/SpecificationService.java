@@ -5,6 +5,7 @@ import com.company.mall.pojo.TbSpecification;
 import com.company.mall.pojogroup.Specification;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 服务层接口
@@ -60,5 +61,11 @@ public interface SpecificationService {
 	 * @return
 	 */
 	PageResult findPage(TbSpecification specification, int pageNum, int pageSize);
+
+	/**
+	 * 规格下拉框列表
+	 * @return
+	 */
+	List<Map> selectSpecificationdList();
 	
 }
