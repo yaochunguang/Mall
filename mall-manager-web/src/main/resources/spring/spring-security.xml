@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+                                http://www.springframework.org/schema/beans/spring-beans.xsd
+						           http://www.springframework.org/schema/security
+						           http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <!-- 配置不需要拦截的页面 -->
+    <http pattern="/login.html" security="none"></http>
+    <http pattern="/css/**" security="none"></http>
+    <http pattern="/img/**" security="none"></http>
+    <http pattern="/js/**" security="none"></http>
+    <http pattern="/plugins/**" security="none"></http>
+
+    <!-- 页面拦截规则 -->
+    <!-- use-expressions 为是否使用使用 Spring 表达式语言（ SpEL ），
+         默认为true ,如果开启，则拦截的配置应该写成【access="hasRole('ROLE_USER')"】形式 -->
+    <http use-expressions="false">
+        <!-- 配置能够通过的角色 -->
+        <intercept-url pattern="/**" access="ROLE_ADMIN"/>
+        <!-- 使用form-login标签，SpringSecutiry框架会自动为我们提供一个login页面 -->
+        <!-- login-page：指定登录页面。
+             authentication-failure-url：指定了身份验证失败时跳转到的页面。
+             default-target-url：指定了成功进行身份验证和授权后默认呈现给用户的页面。-->
+        <form-login login-page="/login.html" default-target-url="/admin/index.html"
+                    authentication-failure-url="/login.html"/>
+        <csrf disabled="true"></csrf>
+        <!-- 在系统中使用了框架页，需要设置框架页的策略为SAMEORIGIN -->
+        <headers>
+            <frame-options policy="SAMEORIGIN"/>
+        </headers>
+    </http>
+
+    <!-- 认证管理器 -->
+    <authentication-manager>
+        <authentication-provider>
+            <user-service>
+                <!-- 配置用户名、密码，以及用户拥有的角色 -->
+                <!-- 注意：在定义角色的时候，SpringSecurity框架要求以"ROLE_"开头 -->
+                <user name="admin" password="123456" authorities="ROLE_ADMIN"/>
+                <user name="yaochunguang" password="123456" authorities="ROLE_ADMIN" />
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+</beans:beans>

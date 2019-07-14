@@ -91,7 +91,18 @@
             <artifactId>mall-sellergoods-interface</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <!-- modify by chunguang.yao on 2019-07-04 for 添加SpringSecurity安全框架 begin -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+        </dependency>
+        <!-- modify by chunguang.yao on 2019-07-04 for 添加SpringSecurity安全框架 end -->
     </dependencies>
+
     <build>
         <plugins>
             <!-- 配置Tomcat插件 -->
