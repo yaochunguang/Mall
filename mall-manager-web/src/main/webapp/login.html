@@ -9,9 +9,10 @@
 
     <link rel="stylesheet" type="text/css" href="css/webbase.css"/>
     <link rel="stylesheet" type="text/css" href="css/pages-login-manage.css"/>
+    <script src="js/plugins/jquery/jquery.min.js"></script>
 </head>
 
-<body>
+<body onkeydown="keyOnClick(event);">
 <div class="loginmanage">
     <div class="py-container">
         <h4 class="manage-title">商城运营商运营管理后台</h4>
@@ -49,7 +50,7 @@
                             </div>
                         </div>
                         <div class="logined">
-                            <a class="sui-btn btn-block btn-xlarge btn-danger" onclick="document:loginForm.submit();" target="_blank">登&nbsp;&nbsp;录</a>
+                            <a  class="sui-btn btn-block btn-xlarge btn-danger" onclick="document:loginForm.submit();" target="_blank"><span id="loginBtn">登&nbsp;&nbsp;录</span></a>
                         </div>
                     </form>
                 </div>
@@ -82,7 +83,7 @@
 <script type="text/javascript" src="js/plugins/sui/sui.min.js"></script>
 <script type="text/javascript" src="js/plugins/jquery-placeholder/jquery.placeholder.min.js"></script>
 <script src="js/pages/jquery.slideunlock.js"></script>
-<script>
+<script type="text/javascript">
     $(function () {
         var slider = new SliderUnlock("#slider", {
             successLabelTip: "欢迎访问商城"
@@ -91,7 +92,21 @@
             // window.location.href="index.html"
         });
         slider.init();
-    })
+    });
+
+    // 当按下回车键的时候，触发登录按钮
+    function keyOnClick(e){
+        var theEvent = window.event || e;
+        var code = theEvent.keyCode || theEvent.which;
+        //回车键的键值为13
+        if (code==13) {
+            //调用搜索事件
+            loginFun();
+        }
+    }
+    function loginFun() {
+        $("#loginBtn").click();
+    }
 </script>
 </body>
 
