@@ -1,8 +1,9 @@
 package com.company.mall.sellergoods.service;
-import java.util.List;
-import com.company.mall.pojo.TbSeller;
 
 import com.company.entity.PageResult;
+import com.company.mall.pojo.TbSeller;
+
+import java.util.List;
 /**
  * 服务层接口
  * @author chunguang.yao
@@ -57,5 +58,12 @@ public interface SellerService {
 	 * @return
 	 */
 	PageResult findPage(TbSeller seller, int pageNum, int pageSize);
+
+	/**
+	 * 商家审核
+	 * @param sellerId
+	 * @param status
+	 */
+	void updateStatus(String sellerId, String status);
 	
 }
