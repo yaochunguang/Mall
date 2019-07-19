@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/security"
              xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://www.springframework.org/schema/beans
-                                http://www.springframework.org/schema/beans/spring-beans.xsd
-						           http://www.springframework.org/schema/security
-						           http://www.springframework.org/schema/security/spring-security.xsd">
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
     <!-- 配置不需要拦截的页面 -->
-    <http pattern="/register.html" security="none"></http>
-    <http pattern="/shoplogin.html" security="none"></http>
-    <http pattern="/sampling.html" security="none"></http>
+    <http pattern="/*.html" security="none"></http>
     <http pattern="/css/**" security="none"></http>
     <http pattern="/img/**" security="none"></http>
     <http pattern="/js/**" security="none"></http>
@@ -27,7 +25,8 @@
         <!-- 使用form-login标签，SpringSecutiry框架会自动为我们提供一个login页面 -->
         <!-- login-page：指定登录页面。
              authentication-failure-url：指定了身份验证失败时跳转到的页面。
-             default-target-url：指定了成功进行身份验证和授权后默认呈现给用户的页面。-->
+             default-target-url：指定了成功进行身份验证和授权后默认呈现给用户的页面。
+             -->
         <form-login login-page="/shoplogin.html" default-target-url="/admin/index.html"
                     authentication-failure-url="/shoplogin.html" always-use-default-target="true"/>
         <csrf disabled="true"></csrf>
@@ -36,14 +35,29 @@
             <frame-options policy="SAMEORIGIN"/>
         </headers>
         <!-- 配置退出登录 -->
-        <logout />
+        <logout/>
     </http>
-
     <!-- 认证管理器 -->
     <authentication-manager>
         <authentication-provider user-service-ref="userDetailService">
+            <password-encoder ref="bcryptEncoder"></password-encoder>
         </authentication-provider>
     </authentication-manager>
-    <!-- 配置认证类 -->
-    <beans:bean id="userDetailService" class="com.company.mall.shop.service.UserDetailsServiceImpl"></beans:bean>
+
+    <!-- 认证类 -->
+    <beans:bean id="userDetailService" class="com.company.mall.shop.service.UserDetailsServiceImpl">
+        <beans:property name="sellerService" ref="sellerService"></beans:property>
+    </beans:bean>
+
+    <!-- 引用dubbo 服务 -->
+    <dubbo:application name="mall-shop-web"/>
+    <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
+    <dubbo:reference id="sellerService"
+                     interface="com.company.mall.sellergoods.service.SellerService"></dubbo:reference>
+
+    <!-- modify by chunguang.yao on 2019-07-19 for 使用BCryptPasswordEncoder对密码进行加密 begin -->
+    <beans:bean id="bcryptEncoder"
+                class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></beans:bean>
+    <!-- modify by chunguang.yao on 2019-07-19 for 使用BCryptPasswordEncoder对密码进行加密 end -->
+
 </beans:beans>
