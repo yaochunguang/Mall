@@ -1,5 +1,5 @@
  //控制层 
-app.controller('itemCatController' ,function($scope,$controller   ,itemCatService){	
+app.controller('itemCatController' ,function($scope, $controller, itemCatService){	
 	
 	$controller('baseController',{$scope:$scope});//继承
 	
@@ -73,8 +73,21 @@ app.controller('itemCatController' ,function($scope,$controller   ,itemCatServic
 			function(response){
 				$scope.list=response.rows;	
 				$scope.paginationConf.totalItems=response.total;//更新总记录数
-			}			
+			}
 		);
 	}
     
+	// 根据父id查询商品分类列表
+	$scope.findByParentId = function (parentId) {
+        page = $scope.paginationConf.currentPage;
+        rows = $scope.paginationConf.itemsPerPage;
+        $scope.searchEntity = {parentId:parentId};
+        itemCatService.search(page,rows,$scope.searchEntity).success(
+            function(response){
+                $scope.list=response.rows;
+                $scope.paginationConf.totalItems=response.total;//更新总记录数
+            }
+        );
+    }
+
 });	

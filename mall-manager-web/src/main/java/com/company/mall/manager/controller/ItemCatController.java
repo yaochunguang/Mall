@@ -107,7 +107,7 @@ public class ItemCatController {
 	 * @return
 	 */
 	@RequestMapping("/search")
-	public PageResult search(@RequestBody TbItemCat itemCat, int page, int rows  ){
+	public PageResult search(@RequestBody TbItemCat itemCat, int page, int rows){
 		return itemCatService.findPage(itemCat, page, rows);		
 	}
 	
