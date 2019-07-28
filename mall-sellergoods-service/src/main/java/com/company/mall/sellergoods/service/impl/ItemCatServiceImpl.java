@@ -99,4 +99,14 @@ public class ItemCatServiceImpl implements ItemCatService {
         Page<TbItemCat> page = (Page<TbItemCat>) itemCatMapper.selectByExample(example);
         return new PageResult(page.getTotal(), page.getResult());
     }
+
+    @Override
+    public int getCountByParentId(Long parentId) {
+        TbItemCatExample example = new TbItemCatExample();
+        Criteria criteria = example.createCriteria();
+        if (parentId != null) {
+            criteria.andParentIdEqualTo(parentId);
+        }
+        return itemCatMapper.countByExample(example);
+    }
 }

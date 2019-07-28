@@ -57,5 +57,14 @@ public interface ItemCatService {
 	 * @return
 	 */
 	PageResult findPage(TbItemCat itemCat, int pageNum, int pageSize);
+
+	/**
+	 * 根据parentId查询是否有下级
+	 * SELECT * FROM tb_item_cat t WHERE t.`parent_id` = parendId;  -> 结果等于 0 -> 没有下级
+	 * SELECT * FROM tb_item_cat t WHERE t.`parent_id` = parendId;  -> 结果大于 0 -> 有下级
+	 * @param parentId
+	 * @return
+	 */
+	int getCountByParentId(Long parentId);
 	
 }
