@@ -3,6 +3,8 @@ import java.util.List;
 import com.company.mall.pojo.TbGoods;
 
 import com.company.entity.PageResult;
+import com.company.mall.pojogroup.Goods;
+
 /**
  * 服务层接口
  * @author chunguang.yao
@@ -27,7 +29,7 @@ public interface GoodsService {
 	/**
 	 * 增加
 	*/
-	void add(TbGoods goods);
+	void add(Goods goods);
 	
 	
 	/**
