@@ -1,8 +1,10 @@
 package com.company.mall.sellergoods.service;
-import java.util.List;
-import com.company.mall.pojo.TbItemCat;
 
 import com.company.entity.PageResult;
+import com.company.mall.pojo.TbItemCat;
+
+import java.util.List;
+
 /**
  * 服务层接口
  * @author chunguang.yao
@@ -66,5 +68,12 @@ public interface ItemCatService {
 	 * @return
 	 */
 	int getCountByParentId(Long parentId);
+
+	/**
+	 * 根据parentid查询列表
+	 * @param parentId
+	 * @return
+	 */
+	List<TbItemCat> findByParentId(Long parentId);
 	
 }

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
     <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../plugins/jquery/jquery-2.2.3.min.js"></script>
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- 富文本编辑器 -->
@@ -25,11 +25,14 @@
     <script src="../js/base.js"></script>
     <script src="../js/service/goodsService.js"></script>
     <script src="../js/service/uploadService.js"></script>
+    <script src="../js/service/itemCatService.js"></script>
+    <script src="../js/service/typeTemplateService.js"></script>
     <script src="../js/controller/baseController.js"></script>
     <script src="../js/controller/goodsController.js"></script>
+
 </head>
 
-<body class="hold-transition skin-red sidebar-mini" ng-app="mall" ng-controller="goodsController">
+<body class="hold-transition skin-red sidebar-mini" ng-app="mall" ng-controller="goodsController" ng-init="selectItemCat1List();">
 
 <!-- 正文区域 -->
 <section class="content">
@@ -68,17 +71,20 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <select class="form-control">
+                                        <select class="form-control" ng-model="entity.goods.category1Id"
+                                        ng-options="item.id as item.name for item in itemCat1List">
                                         </select>
                                     </td>
                                     <td>
-                                        <select class="form-control select-sm"></select>
+                                        <select class="form-control select-sm" ng-model="entity.goods.category2Id"
+                                                ng-options="item.id as item.name for  item in itemCat2List"></select>
                                     </td>
                                     <td>
-                                        <select class="form-control select-sm"></select>
+                                        <select class="form-control select-sm" ng-model="entity.goods.category3Id"
+                                                ng-options="item.id as item.name for  item in itemCat3List"></select>
                                     </td>
                                     <td>
-                                        模板ID:19
+                                        模板ID:{{entity.goods.typeTemplateId}}
                                     </td>
                                 </tr>
                             </table>
@@ -93,7 +99,7 @@
 
                         <div class="col-md-2 title">品牌</div>
                         <div class="col-md-10 data">
-                            <select class="form-control"></select>
+                            <select class="form-control" ng-model="entity.goods.brandId" ng-options="brand.id as brand.text for brand in typeTemplate.brandIds "></select>
                         </div>
 
                         <div class="col-md-2 title">副标题</div>

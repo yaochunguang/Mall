@@ -109,4 +109,14 @@ public class ItemCatServiceImpl implements ItemCatService {
         }
         return itemCatMapper.countByExample(example);
     }
+
+    @Override
+    public List<TbItemCat> findByParentId(Long parentId) {
+        TbItemCatExample example = new TbItemCatExample();
+        Criteria criteria = example.createCriteria();
+        if (parentId != null) {
+            criteria.andParentIdEqualTo(parentId);
+        }
+        return itemCatMapper.selectByExample(example);
+    }
 }
