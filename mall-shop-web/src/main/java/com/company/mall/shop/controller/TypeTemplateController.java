@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * controller
@@ -110,6 +111,16 @@ public class TypeTemplateController {
 	@RequestMapping("/search")
 	public PageResult search(@RequestBody TbTypeTemplate typeTemplate, int page, int rows  ){
 		return typeTemplateService.findPage(typeTemplate, page, rows);		
+	}
+
+	/**
+	 * 查询规格选项列表
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/findSpecList")
+	public List<Map> findSpecList(Long id) {
+		return typeTemplateService.findSpecList(id);
 	}
 	
 }
