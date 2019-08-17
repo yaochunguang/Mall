@@ -35,7 +35,7 @@ public interface GoodsService {
 	/**
 	 * 修改
 	 */
-	void update(TbGoods goods);
+	void update(Goods goods);
 	
 
 	/**
@@ -43,7 +43,7 @@ public interface GoodsService {
 	 * @param id
 	 * @return
 	 */
-	TbGoods findOne(Long id);
+	Goods findOne(Long id);
 	
 	
 	/**
