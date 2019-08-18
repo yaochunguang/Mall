@@ -18,6 +18,7 @@ import com.company.mall.pojo.TbTypeTemplateExample.Criteria;
 import com.company.mall.sellergoods.service.TypeTemplateService;
 
 import com.company.entity.PageResult;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 服务实现层
@@ -25,6 +26,7 @@ import com.company.entity.PageResult;
  * @author chunguang.yao
  */
 @Service
+@Transactional
 public class TypeTemplateServiceImpl implements TypeTemplateService {
 
     @Autowired

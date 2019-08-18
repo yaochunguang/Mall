@@ -11,6 +11,7 @@ import com.company.mall.pojo.TbSpecificationOptionExample.Criteria;
 import com.company.mall.sellergoods.service.SpecificationOptionService;
 
 import com.company.entity.PageResult;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 服务实现层
@@ -18,6 +19,7 @@ import com.company.entity.PageResult;
  *
  */
 @Service
+@Transactional
 public class SpecificationOptionServiceImpl implements SpecificationOptionService {
 
 	@Autowired

@@ -10,6 +10,7 @@ import com.company.mall.sellergoods.service.ItemCatService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ import java.util.List;
  * @author chunguang.yao
  */
 @Service
+@Transactional
 public class ItemCatServiceImpl implements ItemCatService {
 
     @Autowired

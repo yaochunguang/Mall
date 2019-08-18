@@ -9,6 +9,7 @@ import com.company.mall.sellergoods.service.BrandService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import java.util.Map;
  * @date: 2019-06-30 13:02
  */
 @Service
+@Transactional
 public class BrandServiceImpl implements BrandService {
 
     @Autowired

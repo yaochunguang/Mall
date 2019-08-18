@@ -16,6 +16,7 @@ import com.github.pagehelper.PageHelper;
 import org.apache.zookeeper.data.Id;
 import org.springframework.beans.CachedIntrospectionResults;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ import java.util.Map;
  * @author chunguang.yao
  */
 @Service
+@Transactional
 public class SpecificationServiceImpl implements SpecificationService {
 
     // 规格mapper
