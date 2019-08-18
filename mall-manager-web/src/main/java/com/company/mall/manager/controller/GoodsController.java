@@ -111,5 +111,22 @@ public class GoodsController {
 	public PageResult search(@RequestBody TbGoods goods, int page, int rows  ){
 		return goodsService.findPage(goods, page, rows);		
 	}
+
+	/**
+	 * 商品审核
+	 * 审核通过的状态值为1，驳回的状态值为2
+	 * @param ids
+	 * @param status
+	 * @return
+	 */
+	@RequestMapping("/updateStatus")
+	public Result updateStatus(Long[] ids, String status) {
+		try {
+			goodsService.updateStatus(ids, status);
+			return new Result(true, "操作成功!");
+		} catch (Exception e) {
+			return new Result(false, "操作失败!");
+		}
+	}
 	
 }

@@ -178,11 +178,14 @@ public class GoodsServiceImpl implements GoodsService {
 
     /**
      * 批量删除
+     * 逻辑删除，把tb_goods表的is_delete字段设置为1
      */
     @Override
     public void delete(Long[] ids) {
         for (Long id : ids) {
-            goodsMapper.deleteByPrimaryKey(id);
+            TbGoods tbGoods = goodsMapper.selectByPrimaryKey(id);
+            tbGoods.setIsDelete("1");
+            goodsMapper.updateByPrimaryKey(tbGoods);
         }
     }
 
@@ -193,7 +196,8 @@ public class GoodsServiceImpl implements GoodsService {
 
         TbGoodsExample example = new TbGoodsExample();
         Criteria criteria = example.createCriteria();
-
+        // 筛选出状态为未删除的商品，数据库中为NULL
+        criteria.andIsDeleteIsNull();
         if (goods != null) {
             if (goods.getSellerId() != null && goods.getSellerId().length() > 0) {
                 // criteria.andSellerIdLike("%" + goods.getSellerId() + "%");
@@ -217,14 +221,19 @@ public class GoodsServiceImpl implements GoodsService {
             if (goods.getIsEnableSpec() != null && goods.getIsEnableSpec().length() > 0) {
                 criteria.andIsEnableSpecLike("%" + goods.getIsEnableSpec() + "%");
             }
-            if (goods.getIsDelete() != null && goods.getIsDelete().length() > 0) {
-                criteria.andIsDeleteLike("%" + goods.getIsDelete() + "%");
-            }
-
         }
 
         Page<TbGoods> page = (Page<TbGoods>) goodsMapper.selectByExample(example);
         return new PageResult(page.getTotal(), page.getResult());
+    }
+
+    @Override
+    public void updateStatus(Long[] ids, String status) {
+        for (Long id : ids) {
+            TbGoods tbGoods = goodsMapper.selectByPrimaryKey(id);
+            tbGoods.setAuditStatus(status);
+            goodsMapper.updateByPrimaryKey(tbGoods);
+        }
     }
 
 }

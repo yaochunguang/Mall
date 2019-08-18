@@ -59,5 +59,13 @@ public interface GoodsService {
 	 * @return
 	 */
 	PageResult findPage(TbGoods goods, int pageNum, int pageSize);
+
+	/**
+	 * 商品审核  --  更新状态
+	 * 审核通过的状态值为1，驳回的状态值为2
+	 * @param ids
+	 * @param status
+	 */
+	void updateStatus(Long[] ids, String status);
 	
 }
