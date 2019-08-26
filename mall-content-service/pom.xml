@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>mall-manager-web</artifactId>
+    <artifactId>mall-content-service</artifactId>
     <packaging>war</packaging>
 
     <dependencies>
@@ -88,29 +88,39 @@
         </dependency>
         <dependency>
             <groupId>com.company</groupId>
-            <artifactId>mall-sellergoods-interface</artifactId>
+            <artifactId>mall-dao</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!-- modify by chunguang.yao on 2019-07-04 for 添加SpringSecurity安全框架 begin -->
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
+            <groupId>com.company</groupId>
+           <artifactId>mall-content-interface</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-        </dependency>
-        <!-- modify by chunguang.yao on 2019-07-04 for 添加SpringSecurity安全框架 end -->
-
-        <!-- modify by chunguang.yao on 2019-08-26 for 添加广告接口依赖mall-content-interface begin -->
         <dependency>
             <groupId>com.company</groupId>
             <artifactId>mall-content-interface</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
-        <!-- modify by chunguang.yao on 2019-08-26 for 添加广告接口依赖mall-content-interface end -->
+        <dependency>
+            <groupId>com.company</groupId>
+            <artifactId>mall-content-interface</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.company</groupId>
+            <artifactId>mall-content-interface</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.company</groupId>
+            <artifactId>mall-content-interface</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <!-- 配置Tomcat插件 -->
@@ -119,7 +129,7 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <configuration>
                     <path>/</path>
-                    <port>9101</port>
+                    <port>9002</port>
                 </configuration>
             </plugin>
         </plugins>
