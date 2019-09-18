@@ -17,6 +17,7 @@
         <module>../mall-sellergoods-interface</module>
         <module>../mall-content-interface</module>
         <module>../mall-content-service</module>
+        <module>../mall-portal-web</module>
     </modules>
 
     <packaging>pom</packaging>
