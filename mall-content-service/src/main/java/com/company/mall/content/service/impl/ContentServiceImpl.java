@@ -108,4 +108,16 @@ public class ContentServiceImpl implements ContentService {
         return new PageResult(page.getTotal(), page.getResult());
     }
 
+    @Override
+    public List<TbContent> findByCategoryId(Long caegoryId) {
+        TbContentExample example = new TbContentExample();
+        Criteria criteria = example.createCriteria();
+        criteria.andCategoryIdEqualTo(caegoryId);
+        // 状态为有效的
+        criteria.andStatusEqualTo("1");
+        // 排序
+        example.setOrderByClause("sort_order");
+        return contentMapper.selectByExample(example);
+    }
+
 }
